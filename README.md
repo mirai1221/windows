@@ -1,142 +1,40 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./css/style.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src=".\js/sample.js"></script>
-  <title>Document</title>
-</head>
-<body>
-<section>
- <div class="container">
-
-   <a id="slide_toggle_button" href="#">トグルボタン</a>
-
-   <ul id="slide_toggle_menu">
-     <li>メニュー</li>
-     <li>メニュー</li>
-     <li>メニュー</li>
-   </ul>
-
-   <div class="effect-fade">
-     <button id="button_scroll">ボタン</button>
-   </div>
- </div>
-</section>
-
-</body>
-</html>
-
-$(function(){
-
-  $("#slide_toggle_button").on("click", function() {
-      $("#slide_toggle_menu").slideToggle();
-       $("#slide_toggle_menu").toggleClass();
-  });
-
-});
-
-$(function () {
-  $(".effect-fade").hide()
-  $(window).scroll(function () {
-    $(".effect-fade").each(function () {
-      var scroll = $(window).scrollTop(); /* スクロール位置を取得 */
-      if (scroll > 80) {
-        $(this).fadeIn();
-      } else {
-        $(this).fadeOut();
-      }
-    });
-    $(this).on("click",function(){
-      $('body,html').animate({
-        scrollTop: 0
-    }, 500);
-    return false;
-    })
-  });
-  jQuery(window).scroll();
-});
-
-
-
-.container{
-  height: 2000px;
-}
-
-#slide_toggle_menu{
-  display:none;
-}
-
-.effect-fade {
-  padding-top: 500px;
-}
-
-
-
-$(function(){
-
-  $("#slide_toggle_button").on("click", function() {
-      $("#slide_toggle_menu").slideToggle();
-       $("#slide_toggle_menu").toggleClass();
-  });
-
-});
-
-$(function () {
-  $(".effect-fade").hide()
-  $(window).scroll(function () {
-    $(".effect-fade").each(function () {
-      var scroll = $(window).scrollTop(); /* スクロール位置を取得 */
-      if (scroll > 80) {
-        $(this).fadeIn();
-      } else {
-        $(this).fadeOut();
-      }
-    });
-  });
-  jQuery(window).scroll();
-});
-$(function () {
-  $(".effect-fade").on("click",function(){
-    $('body,html').animate({
-      scrollTop: 0
-  }, 500);
-  return false;
-  });
-});
-
-
-
-
-
-class Score
-  @@scores = []
-
-  def initialize(i)
-    @@scores << i
-    p @@scores
-  end
-end
-
 
 class Examinee
-
   @@test_taker = []
-
+  attr_reader :name,:score
   def initialize(name,score)
     @name = name
     @score = score
   end
 
+  def storage(i)
+    @@test_taker << i
+  end
 
+  def max
+    max = @@test_taker.max_by { |human| human.score }
+    p "最高得点は#{max.score}です。"
+    p "最高得点者は#{max.name}です。"
+  end
+
+  def average
+    average = []
+    @@test_taker.each { |human| average << human.score }
+    p "平均点は#{ average.sum(0.0) / average.size }点です。"
+  end
 
 end
 
-
-e = { アイダ: 80 ,イウダ: 90, ウエダ: 40, エオダ: 60}
+e = { アイダ: 80 ,イウダ: 80, ウエダ: 40, エオダ: 60}
 m = { アイダ: 60 ,イウダ: 80, ウエダ: 90, エオダ: 70}
 
-  i = Examinee.new("aida",80)
-  Score.new(i)
+man = nil
+e.each do |name,score|
+  man = Examinee.new(name,score)
+  man.storage(man)
+end
+
+# 最高点を出す 得点者を出す
+man.max
+#平均値を出す
+man.average
