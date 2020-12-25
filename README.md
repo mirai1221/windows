@@ -106,3 +106,37 @@ $(function () {
   return false;
   });
 });
+
+
+
+
+
+class Score
+  @@scores = []
+
+  def initialize(i)
+    @@scores << i
+    p @@scores
+  end
+end
+
+
+class Examinee
+
+  @@test_taker = []
+
+  def initialize(name,score)
+    @name = name
+    @score = score
+  end
+
+
+
+end
+
+
+e = { アイダ: 80 ,イウダ: 90, ウエダ: 40, エオダ: 60}
+m = { アイダ: 60 ,イウダ: 80, ウエダ: 90, エオダ: 70}
+
+  i = Examinee.new("aida",80)
+  Score.new(i)
