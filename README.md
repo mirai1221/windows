@@ -72,3 +72,37 @@ $(function () {
 .effect-fade {
   padding-top: 500px;
 }
+
+
+
+$(function(){
+
+  $("#slide_toggle_button").on("click", function() {
+      $("#slide_toggle_menu").slideToggle();
+       $("#slide_toggle_menu").toggleClass();
+  });
+
+});
+
+$(function () {
+  $(".effect-fade").hide()
+  $(window).scroll(function () {
+    $(".effect-fade").each(function () {
+      var scroll = $(window).scrollTop(); /* スクロール位置を取得 */
+      if (scroll > 80) {
+        $(this).fadeIn();
+      } else {
+        $(this).fadeOut();
+      }
+    });
+  });
+  jQuery(window).scroll();
+});
+$(function () {
+  $(".effect-fade").on("click",function(){
+    $('body,html').animate({
+      scrollTop: 0
+  }, 500);
+  return false;
+  });
+});
